@@ -13,11 +13,13 @@ public class DuplicateMe : MonoBehaviour {
 
 		if ( whatToDuplicate != null )
 		{
-			for ( int i=0; i<howmany; i++ )	{
+            Vector3 rSource = new Vector3(whatToDuplicate.transform.rotation.x, whatToDuplicate.transform.rotation.y, whatToDuplicate.transform.rotation.z);
+
+            for ( int i=1; i<howmany; i++ )	{   // i=1 to skip whatToDuplicate's instance
 
 				Vector3 rOff	=	new Vector3( RotateOffset.x*i, RotateOffset.y*i, RotateOffset.z*i );
 
-				Quaternion qR	=	Quaternion.Euler( rOff.x, rOff.y, rOff.z );
+                Quaternion qR	=	Quaternion.Euler( rOff.x+rSource.x, rOff.y+rSource.y, rOff.z+rSource.z );
 				Vector3 pOff	=	new Vector3( PositionOffset.x*i, PositionOffset.y*i, PositionOffset.z*i );
 
                 GameObject child =  Object.Instantiate<GameObject>(whatToDuplicate, pOff, qR); // ( whatToDuplicate, pOff, qR ) as GameObject;
