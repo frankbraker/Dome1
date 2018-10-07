@@ -68,13 +68,13 @@ public class PointsOnSphere : MonoBehaviour
 
     void Update()
     {
-        if ((Time.time % 20) < 16)
-        {
+        //if ((Time.time % 20) < 16)
+        //{
             transform.parent.Rotate(Vector3.up, speed * Time.deltaTime);
-        }
-        else {
-            transform.Rotate(Vector3.left, speed * Time.deltaTime);
-        }
+        //}
+        //else {
+        //    transform.Rotate(Vector3.left, speed * Time.deltaTime);
+        //}
     }
 
 }
