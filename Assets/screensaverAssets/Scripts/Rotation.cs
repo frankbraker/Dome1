@@ -12,6 +12,8 @@ public class Rotation : MonoBehaviour {
 	private Vector3 worldSpaceRotateRates;
 	private Vector3 localSpaceRotateRates;
 
+    public bool doTricks = true;
+
 
 	// Use this for initialization
 	void Start () {
@@ -21,13 +23,33 @@ public class Rotation : MonoBehaviour {
 		localSpaceRotateRates	=	new Vector3 ( base_localSpaceRotateRates.x, base_localSpaceRotateRates.y, base_localSpaceRotateRates.z );
 		
 	}
-	
-	// Update is called once per frame
-	void Update () {
+    public float x;
 
-		transform.Rotate( worldSpaceRotateRates, Time.deltaTime * base_worldMultiplier );
+    // Update is called once per frame
+    void Update () {
 
-		transform.Rotate( localSpaceRotateRates, Time.deltaTime + base_localMultiplier );
+        x = base_localMultiplier - Time.timeSinceLevelLoad;
+        float o = 0;
+        if (doTricks)
+        {
+            if (x < 1 && x > 0)
+            {
+                base_localMultiplier = x;
+            }
+            if (x < 0f)
+            {
+                base_localMultiplier = Mathf.Clamp(base_localMultiplier, 0f, 1f);
+            }
+            if (Time.timeSinceLevelLoad < 13.0f)
+            {
+                o = 0.18f - base_localMultiplier;
+            }
+        }
+        float myMultiplier = base_localMultiplier + o;
+
+        transform.Rotate( worldSpaceRotateRates, Time.deltaTime * myMultiplier );
+		transform.Rotate( localSpaceRotateRates, Time.deltaTime + myMultiplier);
+
 	}
 
 	public void set_worldSpaceRotateRate( Vector3 setter )
